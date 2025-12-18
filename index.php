@@ -5,12 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-
-<style>
-    body {
-        background-color: <?php echo $bgColor; ?>;
-    }
-</style>
 <body>
 
 <h1>titre</h1>
@@ -52,11 +46,16 @@
     </form>
 
     <?php 
-        if(isset($_POST["user"]) && isset($_POST["color"])) {
+        if(isset($_POST["user"]) && isset($_POST['color'])) {
             $bgColor = $_POST['color'];
             $user = $_POST['user'];
     ?>
     <p>Bienvenue <?php echo $user ?></p>
+    <style>
+        body {
+            background-color: <?php echo $bgColor; ?>;
+        }
+    </style>
     <?php } ?>
 
     <h1>Exercice 4 :</h1>
@@ -89,17 +88,136 @@
     </form>
 
     <?php 
-        if(isset($_POST["admin"]) && isset($_POST["admin"])) {
+        if(isset($_POST["utilisateur"]) && isset($_POST["mdp"])) {
             $utilisateur = $_POST['utilisateur'];
             $mdp = $_POST['mdp']; 
             if($utilisateur == 'admin' && $mdp == 1234) {
-                header("location:formulaire/succes.php");
+                header("location:succes.php");
                 exit;
             } else {
                 echo "Ce n'est pas le bon mot de passe";
             }
         }
     ?>
+
+    <h1>Exercice 6 :</h1>
+
+    <form action="" method="POST">
+        <label for="n1">Premier Nombre</label>
+        <input type="number" name="n1" id="n1">
+        <label for="n2">Deuxième Nombre</label>
+        <input type="number" name="n2" id="n2">
+        <select name="math" id="math-list">
+            <option value="addition">Addition</option>
+            <option value="soustraction">Soustraction</option>
+            <option value="multiplication">Multiplication</option>
+            <option value="division">Division</option>
+        </select>
+        <input type="submit">
+    </form>
+
+    <?php 
+        if(isset($_POST["n1"]) && isset($_POST["n2"]) && isset($_POST['math'])) {
+            $math = $_POST['math'];
+            $n1 = $_POST['n1'];
+            $n2 = $_POST['n2'];
+            if($math == 'addition') {
+                $result = $n1 + $n2;
+            } else if($math == 'soustraction') {
+                $result = $n1 - $n2;
+            } else if($math == 'multiplication') {
+                $result = $n1 * $n2;
+            } else if($math == 'division') {
+                $result = $n1 / $n2;
+            }
+    ?>
+
+    <p>Le résultat est : <?php echo $result?></p>
+    <?php } ?>
+
+    <h1>Exercice 7 :</h1>
+
+    <form method="post">
+        <label>Montant en euros :</label>
+        <input type="number" name="montant" step="0.01">
+        <label>Devise :</label>
+        <select name="devise">
+            <option value="USD">Dollar ($)</option>
+            <option value="GBP">Livre (£)</option>
+            <option value="JPY">Yen (¥)</option>
+            <option value="CHF">Franc suisse</option>
+        </select>
+        <input type="submit" value="Convertir">
+    </form>
+
+    <?php
+    if (isset($_POST['montant']) && isset($_POST['devise'])) {
+
+        $montant = floatval($_POST['montant']);
+        $devise = $_POST['devise'];
+
+        $taux = [
+            "USD" => 1.10,
+            "GBP" => 0.86,
+            "JPY" => 160.50,
+            "CHF" => 0.97
+        ];
+
+        if (array_key_exists($devise, $taux)) {
+            $resultat = $montant * $taux[$devise];
+            echo "<p>$montant € = " . number_format($resultat, 2) . " $devise</p>";
+        }
+    }
+    ?>
+
+    <h1>Exercice 8 :</h1>
+
+    <form method="post">
+        <p>1 - Quelle est la capitale de la France ?</p>
+        <input type="radio" name="q1" value="Paris" required> Paris<br>
+        <input type="radio" name="q1" value="Lyon"> Lyon<br>
+        <input type="radio" name="q1" value="Marseille"> Marseille<br>
+        <input type="radio" name="q1" value="Nice"> Nice<br>
+
+        <p>2 - Combien y a-t-il de continents ?</p>
+        <input type="radio" name="q2" value="5" required> 5<br>
+        <input type="radio" name="q2" value="6"> 6<br>
+        <input type="radio" name="q2" value="7"> 7<br>
+        <input type="radio" name="q2" value="8"> 8<br>
+
+        <p>3 - Quel langage est utilisé côté serveur ?</p>
+        <input type="radio" name="q3" value="PHP" required> PHP<br>
+        <input type="radio" name="q3" value="HTML"> HTML<br>
+        <input type="radio" name="q3" value="CSS"> CSS<br>
+        <input type="radio" name="q3" value="JavaScript"> JavaScript<br>
+
+        <br>
+        <button type="submit">Valider le quiz</button>
+    </form>
+
+    <?php
+    if (isset($_POST['q1']) && isset($_POST['q2']) && isset($_POST['q3'])) {
+        $score = 0;
+
+        if ($_POST["q1"] === "Paris") $score++;
+        if ($_POST["q2"] === "7") $score++;
+        if ($_POST["q3"] === "PHP") $score++;
+
+        echo "<h3>Résultat</h3>";
+        echo "<p>Votre score : <strong>$score / 3</strong></p>";
+
+        if ($score === 3) {
+            echo "<p>Félicitations ! Quiz réussi.</p>";
+        } else {
+            echo "<p >Certaines réponses sont incorrectes.</p>";
+        }
+    }
+    ?>
+
+    <h1>Exercice 9 :</h1>
+
+    
+
 
 
 </body>
