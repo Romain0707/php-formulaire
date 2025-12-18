@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    body {
+        background-color: <?php echo $bgColor; ?>;
+    }
+</style>
+<body>
+
+<h1>titre</h1>
+
+    <h1>Exercice 1 :</h1>
+
+    <p>
+        <?php 
+            if(isset($_GET["ville"]) && isset($_GET["transport"])) {
+                echo "La ville choisie est " . $_GET["ville"] . " et le voyage se fera en " . $_GET["transport"];
+            }
+            
+        ?>
+    </p>
+    
+    <p>Mettre cette URL : <a href="http://formulaire/index.php?ville=Bordeaux&transport=Train">http://formulaire/index.php?ville=Bordeaux&transport=Train</a></p>
+
+    <h1>Exercice 2 :</h1>
+
+    <form action="index.php" method="GET">
+        <label for="animal">Votre animal préféré</label>
+        <input type="text" id="animal" name="animal">
+        <input type="submit">
+    </form>
+    <?php 
+        if(isset($_GET["animal"])) {
+            $animal = $_GET['animal'];
+    ?>
+    <p>Votre animal choisi est <?php echo $animal; ?></p>
+    <?php } ?>
+
+    <h1>Exercice 3 :</h1>
+
+    <form action="index.php" method="POST">
+        <input type="color" id="color" name="color">
+        <label for="user">Nom d'utilisateur</label>
+        <input type="text" id="user" name="user">
+        <input type="submit">
+    </form>
+
+    <?php 
+        if(isset($_POST["user"]) && isset($_POST["color"])) {
+            $bgColor = $_POST['color'];
+            $user = $_POST['user'];
+    ?>
+    <p>Bienvenue <?php echo $user ?></p>
+    <?php } ?>
+
+    <h1>Exercice 4 :</h1>
+
+    <form action="index.php" method="POST">
+        <input type="number" id="dice" name="dice">
+        <input type="submit">
+    </form>
+
+    <?php 
+        if(isset($_POST["dice"])) {
+            $dice = $_POST['dice'];
+ 
+            if($dice % 6 == 0) {
+                echo "Vous avez choisi un dès de " . $dice;
+            } else {
+                echo "Le dès n'est pas un multiple de 6";
+            }
+        } 
+    ?>
+
+    <h1>Exercice 5 :</h1>
+
+    <form action="" method="POST">
+        <label for="utilisateur">Nom d'utilisateur</label>
+        <input type="text" id="utilisateur" name="utilisateur">
+        <label for="mdp">Mot de passe :</label>
+        <input type="text" id="mdp" name="mdp">
+        <input type="submit">
+    </form>
+
+    <?php 
+        if(isset($_POST["admin"]) && isset($_POST["admin"])) {
+            $utilisateur = $_POST['utilisateur'];
+            $mdp = $_POST['mdp']; 
+            if($utilisateur == 'admin' && $mdp == 1234) {
+                header("location:formulaire/succes.php");
+                exit;
+            } else {
+                echo "Ce n'est pas le bon mot de passe";
+            }
+        }
+    ?>
+
+
+</body>
+</html>
