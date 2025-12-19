@@ -1,3 +1,8 @@
+<?php 
+session_start();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,22 +14,21 @@
 
 <h1>titre</h1>
 
-    <h1>Exercice 1 :</h1>
+    <h1 id="ex1">Exercice 1 :</h1>
 
     <p>
         <?php 
             if(isset($_GET["ville"]) && isset($_GET["transport"])) {
                 echo "La ville choisie est " . $_GET["ville"] . " et le voyage se fera en " . $_GET["transport"];
             }
-            
         ?>
     </p>
     
     <p>Mettre cette URL : <a href="http://formulaire/index.php?ville=Bordeaux&transport=Train">http://formulaire/index.php?ville=Bordeaux&transport=Train</a></p>
 
-    <h1>Exercice 2 :</h1>
+    <h1 id="ex2">Exercice 2 :</h1>
 
-    <form action="index.php" method="GET">
+    <form action="index.php#ex2" method="GET">
         <label for="animal">Votre animal préféré</label>
         <input type="text" id="animal" name="animal">
         <input type="submit">
@@ -36,9 +40,9 @@
     <p>Votre animal choisi est <?php echo $animal; ?></p>
     <?php } ?>
 
-    <h1>Exercice 3 :</h1>
+    <h1 id="ex3">Exercice 3 :</h1>
 
-    <form action="index.php" method="POST">
+    <form action="index.php#ex3" method="POST">
         <input type="color" id="color" name="color">
         <label for="user">Nom d'utilisateur</label>
         <input type="text" id="user" name="user">
@@ -58,9 +62,9 @@
     </style>
     <?php } ?>
 
-    <h1>Exercice 4 :</h1>
+    <h1 id="ex4">Exercice 4 :</h1>
 
-    <form action="index.php" method="POST">
+    <form action="index.php#ex4" method="POST">
         <input type="number" id="dice" name="dice">
         <input type="submit">
     </form>
@@ -77,9 +81,9 @@
         } 
     ?>
 
-    <h1>Exercice 5 :</h1>
+    <h1 id="ex5">Exercice 5 :</h1>
 
-    <form action="" method="POST">
+    <form action="index.php#ex5" method="POST">
         <label for="utilisateur">Nom d'utilisateur</label>
         <input type="text" id="utilisateur" name="utilisateur">
         <label for="mdp">Mot de passe :</label>
@@ -100,9 +104,9 @@
         }
     ?>
 
-    <h1>Exercice 6 :</h1>
+    <h1 id="ex6">Exercice 6 :</h1>
 
-    <form action="" method="POST">
+    <form action="index.php#ex6" method="POST">
         <label for="n1">Premier Nombre</label>
         <input type="number" name="n1" id="n1">
         <label for="n2">Deuxième Nombre</label>
@@ -135,9 +139,9 @@
     <p>Le résultat est : <?php echo $result?></p>
     <?php } ?>
 
-    <h1>Exercice 7 :</h1>
+    <h1 id="ex7">Exercice 7 :</h1>
 
-    <form method="post">
+    <form action="index.php#ex7" method="post">
         <label>Montant en euros :</label>
         <input type="number" name="montant" step="0.01">
         <label>Devise :</label>
@@ -170,26 +174,56 @@
     }
     ?>
 
-    <h1>Exercice 8 :</h1>
+    <h1 id="ex8">Exercice 8 :</h1>
 
-    <form method="post">
+    <form action="index.php#ex8" method="post">
         <p>1 - Quelle est la capitale de la France ?</p>
-        <input type="radio" name="q1" value="Paris" required> Paris<br>
+        <input type="radio" name="q1" value="Paris"> Paris<br>
         <input type="radio" name="q1" value="Lyon"> Lyon<br>
         <input type="radio" name="q1" value="Marseille"> Marseille<br>
         <input type="radio" name="q1" value="Nice"> Nice<br>
 
+        <?php 
+        if (isset($_POST['q1']) && isset($_POST['q2']) && isset($_POST['q3'])) {
+            if ($_POST["q1"] == "Paris") {
+                echo "<p> Vrai ! </p>";
+            } else {
+                echo "<p> Raté, la bonne réponses était Paris </p>";
+            }
+        } 
+        ?>
+
         <p>2 - Combien y a-t-il de continents ?</p>
-        <input type="radio" name="q2" value="5" required> 5<br>
+        <input type="radio" name="q2" value="5"> 5<br>
         <input type="radio" name="q2" value="6"> 6<br>
         <input type="radio" name="q2" value="7"> 7<br>
         <input type="radio" name="q2" value="8"> 8<br>
 
+        <?php 
+        if (isset($_POST['q1']) && isset($_POST['q2']) && isset($_POST['q3'])) {
+            if ($_POST["q2"] == "7") {
+                echo "<p> Vrai ! </p>";
+            } else {
+                echo "<p> Raté, la bonne réponses était 7 </p>";
+            }
+        } 
+        ?>
+
         <p>3 - Quel langage est utilisé côté serveur ?</p>
-        <input type="radio" name="q3" value="PHP" required> PHP<br>
+        <input type="radio" name="q3" value="PHP"> PHP<br>
         <input type="radio" name="q3" value="HTML"> HTML<br>
         <input type="radio" name="q3" value="CSS"> CSS<br>
         <input type="radio" name="q3" value="JavaScript"> JavaScript<br>
+
+        <?php 
+        if (isset($_POST['q1']) && isset($_POST['q2']) && isset($_POST['q3'])) {
+            if ($_POST["q3"] == "PHP") {
+                echo "<p> Vrai ! </p>";
+            } else {
+                echo "<p> Raté, la bonne réponses était PHP </p>";
+            }
+        } 
+        ?>
 
         <br>
         <button type="submit">Valider le quiz</button>
@@ -214,9 +248,71 @@
     }
     ?>
 
-    <h1>Exercice 9 :</h1>
+    <h1 id="ex9">Exercice 9 :</h1>
 
-    
+    <p>Devinez un nombre compris entre <strong>0 et 1000</strong>.</p>
+
+    <form action="index.php#ex9" method="post">
+        <input type="number" name="find" min="0" max="1000">
+        <input type="submit" value="Tester">
+    </form>
+
+    <?php
+    if (!isset($_SESSION['mystere'])) {
+        $_SESSION['mystere'] = rand(0, 1000);
+    }
+
+    if (isset($_POST['find'])) {
+        if($_POST['find'] < $_SESSION['mystere']) {
+            echo "<p> Le nombre à trouvé est plus grand </p>";
+        } else if($_POST['find'] > $_SESSION['mystere']) {
+            echo "<p> Le nombre à trouvé est plus petit </p>";
+        } else {
+            echo 
+            "<p> Bravo tu as trouver </p>
+            <a href=\"index.php\">Reset le nombre</a>";
+            unset($_SESSION['mystere']);
+        }
+    }
+    ?>
+
+    <h1 id="ex10">Exercice 10 :</h1>
+
+    <form action="index.php#ex10" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*">
+        <input type="submit" value="Uploadé">
+    </form>
+
+    <?php
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
+
+        $tmpName = $_FILES['image']['tmp_name'];
+        $originalName = $_FILES['image']['name'];
+
+        $imageInfo = getimagesize($tmpName);
+
+        if ($imageInfo !== false) {
+
+            $extension = pathinfo($originalName, PATHINFO_EXTENSION);
+
+            $newName = uniqid("img_", true) . "." . $extension;
+
+            $destination = "uploads/" . $newName;
+
+            move_uploaded_file($tmpName, $destination);
+
+            echo "<p>Image uploadée avec succès !</p>";
+
+            echo "<img src='$destination' width='300'>";
+
+        } else {
+            echo "<p>Le fichier n'est pas une image valide.</p>";
+        }
+
+    } else {
+        echo "<p>Erreur lors de l'upload.</p>";
+    }
+    ?>
 
 
 
